@@ -1,4 +1,4 @@
-package com.ferhatparmak.reactivecases;
+package com.ferhatparmak.reactivecases.ui.main;
 
 import android.support.v7.app.AppCompatActivity;
 
