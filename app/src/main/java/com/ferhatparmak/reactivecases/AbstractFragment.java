@@ -31,13 +31,13 @@ public abstract class AbstractFragment extends Fragment {
 
   public Completable onResumeCompletable() {
     return onResumePauseSubject
-        .takeWhile(onResume -> !onResume)
+        .takeWhile(onResume -> onResume)
         .ignoreElements();
   }
 
   public Completable onPauseCompletable() {
     return onResumePauseSubject
-        .takeWhile(onResume -> onResume)
+        .takeWhile(onResume -> !onResume)
         .ignoreElements();
   }
 

@@ -28,13 +28,13 @@ public abstract class AbstractActivity extends AppCompatActivity {
 
   public Completable onResumeCompletable() {
     return onResumePauseSubject
-        .takeWhile(onResume -> !onResume)
+        .takeWhile(onResume -> onResume)
         .ignoreElements();
   }
 
   public Completable onPauseCompletable() {
     return onResumePauseSubject
-        .takeWhile(onResume -> onResume)
+        .takeWhile(onResume -> !onResume)
         .ignoreElements();
   }
 
