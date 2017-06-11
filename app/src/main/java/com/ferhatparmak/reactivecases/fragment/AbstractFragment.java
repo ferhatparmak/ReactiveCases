@@ -1,29 +1,32 @@
-package com.ferhatparmak.reactivecases.ui;
+package com.ferhatparmak.reactivecases.fragment;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
+import android.content.Context;
+import android.support.v4.app.Fragment;
 import com.ferhatparmak.reactivecases.App;
-import com.ferhatparmak.reactivecases.ApplicationComponent;
+import com.ferhatparmak.reactivecases.component.ApplicationComponent;
 import io.reactivex.Completable;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
 
-public abstract class AbstractActivity extends AppCompatActivity {
+public abstract class AbstractFragment extends Fragment {
   private BehaviorSubject<Boolean> onResumePauseSubject = BehaviorSubject.create();
   private PublishSubject<Object> onDestroySubject = PublishSubject.create();
 
-  public ApplicationComponent getComponent() {
-    App app = (App) getApplication();
+  public ApplicationComponent getComponent(Context context) {
+    Activity activity = (Activity) context;
+    App app = (App) activity.getApplication();
     return app.getComponent();
   }
 
   @Override
-  protected void onResume() {
+  public void onResume() {
     super.onResume();
     onResumePauseSubject.onNext(true);
   }
 
   @Override
-  protected void onPause() {
+  public void onPause() {
     onResumePauseSubject.onNext(false);
     super.onPause();
   }
@@ -45,7 +48,7 @@ public abstract class AbstractActivity extends AppCompatActivity {
   }
 
   @Override
-  protected void onDestroy() {
+  public void onDestroy() {
     onResumePauseSubject.onComplete();
     onDestroySubject.onComplete();
     super.onDestroy();
