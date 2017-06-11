@@ -8,7 +8,7 @@ import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
 
 @Module
-public class AndroidModule {
+public abstract class AndroidModule {
   @Provides
   static Subject<Activity> activitiesSubject() {
     return PublishSubject.create();
